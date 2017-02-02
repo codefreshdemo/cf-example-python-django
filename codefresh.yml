@@ -1,0 +1,15 @@
+version: '1.0'
+
+steps:
+   test_the_code:
+     image: python:slim
+     commands:
+       - python -m unittest composeexample.utils
+     
+   build_the_image:
+     type: build
+     image_name: codefreshdemo/djanga
+   
+   launch_the_composition:
+     type: launch-composition
+     composition: docker-compose.yml
