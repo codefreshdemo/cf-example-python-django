@@ -1,4 +1,6 @@
 FROM python:3.5
+RUN apt-get update && apt-get install -y netcat
+
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
@@ -10,5 +12,5 @@ EXPOSE 8000
 ADD requirements.txt /opt/codefresh/something
 RUN pip install -r requirements.txt
 ADD . /code/
-RUN apt-get update && apt-get install -y netcat
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
