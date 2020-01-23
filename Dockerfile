@@ -1,16 +1,15 @@
-FROM python:3.5
-RUN apt-get update && apt-get install -y netcat
+FROM python:3.6-slim
 
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
-ADD requirements.txt /code/
+RUN pip install --upgrade pip
+COPY requirements.txt /code/
+
+RUN pip install -r requirements.txt
+COPY . /code/
 
 EXPOSE 8000
-
-#Adding comment
-ADD requirements.txt /opt/codefresh/something
-RUN pip install -r requirements.txt
-ADD . /code/
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
