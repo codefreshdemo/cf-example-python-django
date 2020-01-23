@@ -1,8 +1,8 @@
 version: '1.0'
 stages:
  - prepare
- - build
  - test
+ - build
 steps:
   main_clone:
     title: Cloning main repository...
@@ -11,17 +11,18 @@ steps:
     repo: 'codefreshdemo/cf-example-python-django'
     revision: master
     git: github
+  test_the_code:
+     title: Run unit tests
+     stage: test
+     image: python:3.6-slim
+     commands:
+       - pip install -r requirements.txt --cache-dir=/codefresh/volume/pip-cache 
+       - python -m unittest composeexample.utils    
   build_my_image:
     title: Building Docker Image
     stage: build
     type: build
     image_name: my-django-image
     working_directory: ./
-    tag: master
+    tag: full
     dockerfile: Dockerfile
-  test_my_image:
-     title: Running unit tests
-     stage: test
-     image: '${{build_my_image}}'
-     commands:
-       - python -m unittest composeexample.utils     
