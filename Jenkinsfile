@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "riteshk0398/calculator"
+    registry = "riteshk0398/cf-example-python-django"
     registryCredential = 'dockerhub'
   }
 agent any
@@ -19,7 +19,7 @@ agent any
     
         sh  '''#!/bin/bash
                 
-                if [[ $GIT_BRANCH == "development" ]]
+                if [[ $GIT_BRANCH == "development-rk" ]]
                 then
                     docker run -dp 8000:8000 riteshk03/py-demo:$BUILD_ID-$BRANCH_NAME
                 elif [[ $GIT_BRANCH == "master" ]]
