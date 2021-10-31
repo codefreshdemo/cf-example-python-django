@@ -29,3 +29,14 @@ agent any
             '''
       }
     }
+    stage('') {
+      steps{
+        sh '''
+            
+            docker ps            '''
+      }
+    }
+    }
+}
+
+
